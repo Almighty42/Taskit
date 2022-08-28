@@ -1,0 +1,67 @@
+
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;700&display=swap');
+
+body {
+    margin: 0
+}
+
+h1,h2,p{
+    margin: 0;
+    font-family: 'League Spartan', sans-serif;
+}
+
+p {
+    font-weight: 400;
+}
+
+h2 {
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+// Mixins
+
+@mixin flexHorizontal {
+    display: flex;
+    align-items: center;
+}
+
+// Color pallete
+
+$palettes: (
+    primary: (
+        900: #330200,
+        800: #650A06,
+        700: #8F1814,
+        600: #AA2727,
+        500: #BF4440,
+        400: #D85955,
+        300: #EE8A87,
+        200: #F9A7A4,
+        100: #FFCECC,
+    ),
+    neutral: (
+        900: #474747,
+        800: #595959,
+        700: #6E6E6E,
+        600: #828282,
+        500: #949494,
+        400: #A6A6A6,
+        300: #C2C2C2,
+        200: #E6E5E5,
+        100: #F5F5F5,
+    )
+);
+
+:root {
+    @each $colorname, $palette in $palettes {
+        @each $key, $value in $palette {
+            $keyname: "--palette-" + $colorname + "-" + $key;
+            #{$keyname}: #{$value};
+        }
+    }
+}

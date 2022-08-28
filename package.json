@@ -2,6 +2,7 @@
   "name": "taskit",
   "version": "0.1.0",
   "private": true,
+  "type":"module",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
@@ -36,6 +37,8 @@
   },
   "devDependencies": {
     "concurrently": "^7.3.0",
+    "sass": "^1.54.5",
+    "sass-loader": "^13.0.2",
     "ts-loader": "^9.3.1",
     "typescript": "^4.8.2",
     "webpack": "^5.74.0",
