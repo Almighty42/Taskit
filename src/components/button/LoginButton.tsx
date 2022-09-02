@@ -5,9 +5,11 @@ import './loginButton.scss'
 
 const loginButton = (props: { name: string }) => {
   return (
-    <button>
+    <div className='loginButton'>
+      <button type='submit' >
         <h1> {props.name} </h1>
-    </button>
+      </button>
+    </div>
   )
 }
 

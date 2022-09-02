@@ -8,11 +8,17 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
+            {
+                test: /\.s[ac]ss$/i,
+                use: ["style-loader", "css-loader", "sass-loader"],
+            },
         ],
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
         alias: {
+            'assets': path.resolve(__dirname, 'src/assets'),
+            'components': path.resolve(__dirname, 'src/components'),
             'views': path.resolve(__dirname, 'src/views'),
         }
     },

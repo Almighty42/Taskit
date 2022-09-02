@@ -1,0 +1,36 @@
+
+@use '/src/global.scss';
+
+.addTask {
+    height: 50vh;
+    width: 50vw;
+
+    @media screen and (max-width:800px) {
+        width: 80vw;
+    }
+
+    position: relative;
+
+    user-select: none;
+
+    display: flex;
+    flex-flow: column;
+
+    box-sizing: border-box;
+
+    border-radius: 25px;
+
+    background-color: var(--palette-neutral-100);
+
+    padding: 20px;
+
+    .addNavigation {
+        display: flex;
+
+        height: 50px;
+
+        padding-bottom: 20px;
+
+        position: relative;
+    }
+}
