@@ -1,5 +1,5 @@
 // React
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 // useContext
 import UserContext from 'UserContext'
 // Style
@@ -8,7 +8,7 @@ import './Tasks.scss'
 import Task from 'components/layout/Tasks/Task'
 
 const Tasks = () => {
-
+  // Context
   const { tasks }:any = useContext(UserContext)
   
   return (

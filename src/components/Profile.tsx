@@ -17,7 +17,6 @@ import DialogContent from '@mui/material/DialogContent';
 import Alert from '@mui/material/Alert';
 
 const Profile = () => {
-
     // useState
     const [open1, setOpen1] = useState(false)
     const [open2, setOpen2] = useState(false)
@@ -28,17 +27,22 @@ const Profile = () => {
     const [error, setError] = useState(false)
     const [error2, setError2] = useState(false)
     const [error3, setError3] = useState(false)
+    const [error4, setError4] = useState(false)
+
     // useContext
     const { username, email, logout, setUsername, setEmail, Id }: any = useContext(UserContext)
+
     // useEffect
     useEffect(() => {
         console.log("axios")
-        axios.get('http://localhost:4000/user', { withCredentials: true })
-          .then(res => {
-            setEmail(res.data.email)
-            setUsername(res.data.username)
-          })
-      }, [])
+        axios.post('https://taskit-dev.herokuapp.com/userGet', { userToken: localStorage.getItem('token') }, { withCredentials: true })
+            .then(res => {
+                console.log(res.data)
+                setEmail(res.data.email)
+                setUsername(res.data.username)
+            })
+    }, [])
+
     // Function
     const validateEmail = (email: any) => {
         var re = /\S+@\S+\.\S+/;
@@ -55,8 +59,8 @@ const Profile = () => {
     }
     const changeUser = async (option: any) => {
         if (option == 'username') {
-            let data = { usernameVal, username, option, Id }
-            axios.post('http://localhost:4000/changeUserDetails', data, { withCredentials: true })
+            let data = { usernameVal, username, option, Id, userToken: localStorage.getItem('token') }
+            axios.post('https://taskit-dev.herokuapp.com/changeUserDetails', data, { withCredentials: true })
                 .then(res => {
                     if (res.data === false) {
                         setError2(true)
@@ -70,8 +74,8 @@ const Profile = () => {
                 setEmailVal('')
                 setOpen2(false)
             } else {
-                let data = { emailVal, username, option, Id }
-                axios.post('http://localhost:4000/changeUserDetails', data, { withCredentials: true })
+                let data = { emailVal, username, option, Id, userToken: localStorage.getItem('token') }
+                axios.post('https://taskit-dev.herokuapp.com/changeUserDetails', data, { withCredentials: true })
                     .then(res => {
                         if (res.data === false) {
                             setError(true)
@@ -81,14 +85,18 @@ const Profile = () => {
                     })
             }
         } else if (option == 'password') {
-            let data = { passwordVal, username, option, Id }
-            axios.post('http://localhost:4000/changeUserDetails', data, { withCredentials: true })
-                .then(res => {
-                    
-                })
+            if (passwordVal == '') {
+                setError4(true)
+            } else {
+                let data = { passwordVal, username, option, Id, userToken: localStorage.getItem('token') }
+                axios.post('https://taskit-dev.herokuapp.com/changeUserDetails', data, { withCredentials: true })
+                    .then(res => {
+                    })
+            }
         }
     }
 
+    // useNavigate
     const navigate = useNavigate()
 
     return (
@@ -174,6 +182,16 @@ const Profile = () => {
             >
                 <DialogContent style={{ padding: 0 }} >
                     <Alert style={{ fontSize: '1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClose={() => { setError3(false) }} severity="error" >Invalid email, invalid format</Alert>
+                </DialogContent>
+            </Dialog>
+            <Dialog
+                open={error4}
+                onClose={() => (setError4(false))}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogContent style={{ padding: 0 }} >
+                    <Alert style={{ fontSize: '1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClose={() => { setError4(false) }} severity="error" >Password cannot be empty</Alert>
                 </DialogContent>
             </Dialog>
         </>

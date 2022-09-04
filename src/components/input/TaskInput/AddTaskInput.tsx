@@ -4,7 +4,7 @@ import React from 'react'
 import './AddTaskInput.scss'
 
 const AddTaskInput = (props: { title: string, setTitle: any }) => {
-
+    // Functions
     const handleChange = (e: any) => {
         props.setTitle(e.target.value)
     }

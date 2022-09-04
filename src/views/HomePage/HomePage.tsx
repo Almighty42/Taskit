@@ -12,19 +12,21 @@ import Tasks from 'components/layout/Tasks/Tasks'
 import axios from 'axios'
 
 const HomePage = () => {
-
+  // useNavigate
   const navigate = useNavigate()
 
+  // useEffect
   useEffect(() => {
-    axios.get('http://localhost:4000/user', { withCredentials: true })
+    const data = { id:localStorage.getItem('token'), }
+    axios.post('https://taskit-dev.herokuapp.com/userCheck', data, { withCredentials: true })
       .then(res => {
+        console.log(res.data)
         if (Object.keys(res.data).length === 0) {
           navigate('/login')
         }
       })
   }, [])
   
-
   return (
     <div style={{ height:'100%', width:"100%" }} >
       <Navbar />

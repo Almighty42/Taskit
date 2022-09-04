@@ -17,11 +17,14 @@ const Task = (props: { title: string, disc: string, color: string, border: strin
     // useState
     const [check, setCheck] = useState(false)
     const [value, setValue] = useState('')
+
     // useContext
     const { deleteTask, changeMenu, state, changeDisc, changeCheck }: any = useContext(UserContext)
+
     // useEffect
     useEffect(() => {
     }, [state])
+    
     // Functions
     const handleChange = (e: any) => {
         setValue(e.target.value)

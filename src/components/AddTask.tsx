@@ -19,15 +19,13 @@ const AddTask = () => {
     const [title, setTitle] = useState('')
     const [disc, setDisc] = useState('')
 
-    // useEffect
-
     // useContext
     const { tasks, setTasks }: any = useContext(UserContext)
 
     // Functions
     const addTodo = (e: any) => {
         const id = JSON.stringify(Math.floor(Math.random() * 10000) + 1)
-        axios.put('http://localhost:4000/todos', { title: title, disc: disc, color: color, border: border, id: id, menu: false, check: false }, { withCredentials: true })
+        axios.put('https://taskit-dev.herokuapp.com/todos', { title: title, disc: disc, color: color, border: border, id: id, menu: false, check: false, userToken:localStorage.getItem('token') }, { withCredentials: true })
             .then(res => {
                 console.log(res)
                 setTasks([...tasks, { title: title, disc: disc, color: color, border: border, id: id, menu: false, check:false }])

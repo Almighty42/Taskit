@@ -16,7 +16,7 @@ import RedRegister from 'components/button/RedRegister';
 import UserContext from 'UserContext'
 // Icons
 import ShowPasswordIcon from 'assets/SVGR/ShowPasswordIcon'
-
+// Axios
 import axios from 'axios'
 
 const RegisterForm = () => {
@@ -29,8 +29,10 @@ const RegisterForm = () => {
   const [error, setError] = useState(false)
   const [error2, setError2] = useState(false)
   const [error3, setError3] = useState(false)
+
   // React router
   const navigate = useNavigate()
+
   // useContext
   type test = {
     email?: string,
@@ -40,6 +42,7 @@ const RegisterForm = () => {
   }
   const user: test = useContext(UserContext)
 
+  // Functions
   const registerUser = function (e: any) {
     e.preventDefault()
 
@@ -48,8 +51,8 @@ const RegisterForm = () => {
       setPassword('')
       setconPassword('')
     } else {
-      const data = { username, email, password };
-      axios.post('http://localhost:4000/register', data, { withCredentials: true })
+      const data = { username, email, password, id:localStorage.getItem('token') };
+      axios.post('https://taskit-dev.herokuapp.com/register', data, { withCredentials: true })
         .then((res) => {
           console.log(res.data)
           if (res.data.status) {

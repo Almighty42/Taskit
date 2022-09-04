@@ -4,7 +4,7 @@ import React from 'react'
 import './AddTaskDisc.scss'
 
 const AddTaskDisc = (props: { disc:string, setDisc:any }) => {
-
+  // Functions
   const handleChange = (e:any) => {
     props.setDisc(e.target.value)
   }

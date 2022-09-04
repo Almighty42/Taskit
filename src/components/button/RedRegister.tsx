@@ -6,7 +6,7 @@ import './redRegister.scss'
 import { useNavigate } from "react-router-dom";
 
 const RedRegister = (props: { name:string, url:string }) => {
-
+  // useNavigate
   const navigate = useNavigate()
 
   return (

@@ -16,34 +16,37 @@ import RedRegister from 'components/button/RedRegister'
 import UserContext from 'UserContext'
 // Icons
 import ShowPasswordIcon from 'assets/SVGR/ShowPasswordIcon'
-
+// Axios
 import axios from 'axios'
 
 const LoginForm = () => {
-
   // useState
   const [passwordCheck, setCheck] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
+
   // React router
   const navigate = useNavigate()
+
   // useContext
   const user: any = useContext(UserContext)
 
+  // Functions
   const loginUser = function (e: any) {
     e.preventDefault()
 
     const data = { username, password };
-    axios.post('http://localhost:4000/login', data, { withCredentials: true })
+    axios.post('https://taskit-dev.herokuapp.com/login', data, { withCredentials: true })
       .then((res) => {
         if (!res.data == false) {
+          localStorage.setItem('token', res.data.userToken)
           user.setUsername(res.data.username)
           setUsername('')
           setPassword('')
           setError(false)
           navigate('/')
-          axios.get('http://localhost:4000/todos', { withCredentials: true })
+          axios.post('https://taskit-dev.herokuapp.com/todosGet', { userToken:localStorage.getItem('token') }, { withCredentials: true })
             .then(res => {
               if (!res.data == false) {
                 user.setTasks(res.data);
