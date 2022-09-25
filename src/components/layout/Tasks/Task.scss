@@ -1,0 +1,82 @@
+@use "/src/global.scss";
+
+.taskBody {
+    min-width: 200px;
+
+    margin-top: 16px;
+    
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+
+    border: 2px solid black;
+    border-radius: 5px;
+
+    padding: 0 22px;
+    @media screen and (max-width: 400px) {
+        padding: 0 5px;
+    }
+
+    .taskBody2 {
+        height: 35px;
+        width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .taskHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 200px;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            p {
+                margin-left: 10px;
+                font-size: 1.2rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                user-select: none;
+            }
+        }
+        .taskNavigation {
+            width: 100px;
+
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+
+            svg {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.taskBody.drop {
+    height: fit-content;
+
+    .discBody {
+        margin: 25px 0;
+        p {
+            font-size: 18px;
+            user-select: none;
+            overflow-wrap:break-word;
+        }
+        textarea {
+            width: 100%;
+            font-size: 18px;
+
+            resize: vertical;
+
+            font-family: 'League Spartan', sans-serif;
+
+            border: 2px solid black;
+            border-radius: 4px;
+        }
+    }
+}

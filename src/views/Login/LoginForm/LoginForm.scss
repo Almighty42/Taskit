@@ -1,0 +1,74 @@
+
+@use '/src/global.scss';
+
+.form {
+    min-width: 240px;
+    width: 30%;
+
+    border: 5px solid black;
+    border-radius: 20px;
+    background-color: white;
+
+    padding: 1.5rem 2rem;
+
+    display: flex;
+    flex-flow: column;
+
+    .formHeader {
+        @include global.flexHorizontal;
+        flex-flow: column;
+
+        .input {
+            width: 100%;
+            padding-top: 1rem;
+            p {
+                color: var(--palette-neutral-600);
+                padding-bottom: 0.2rem;
+            }
+
+        }
+
+        .username, .password {
+            input {
+                outline: none;
+                color: var(--palette-neutral-900);
+            }
+            .inputDiv {
+                display: flex;
+                background-color: #f1f5f9;
+                border: 3px solid black;
+                border-radius: 4px;
+            }
+        }
+
+        .username {
+            input {
+                background: url('~assets/SVG/usernameIcon.svg') no-repeat left;
+                padding-left: 45px !important;
+                background-position: 10px 10px;
+            }
+        }
+
+        .password {
+            input {
+                background: url('~assets/SVG/passwordIcon.svg') no-repeat left;
+                padding-left: 45px !important;
+                background-position: 10px 10px;
+            }
+            input:focus + button {
+                background-color: white;
+            }
+            button {
+                border: none;
+                background-color: transparent;
+                cursor: pointer;
+                margin: 0;
+                width: 48px;
+                box-sizing: border-box;
+                border-radius: 0;
+            }
+        }
+
+    }
+
+}

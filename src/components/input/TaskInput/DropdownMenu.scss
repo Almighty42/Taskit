@@ -1,0 +1,38 @@
+
+@use '/src/global.scss';
+
+.dropdownBody {
+    height: 50px;
+    width: fit-content;
+
+    padding: 0 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+
+    box-sizing: border-box;
+
+    border: 3px solid black;
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    position: fixed;
+
+    background-color: white;
+
+}
+
+.dropdownBody.open {
+    height: 300px;
+
+    justify-content: space-around;
+
+    cursor: auto;
+
+    div {
+        cursor: pointer;
+    }
+}
