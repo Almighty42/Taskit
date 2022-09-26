@@ -20,7 +20,7 @@ const HomePage = () => {
     }
     // TODO Checking navigate('/login')
     /* const data = { id:localStorage.getItem('token'), }
-    axios.post('http://localhost:4000/userCheck', data, { withCredentials: true })
+    axios.post('https://taskit-dev.herokuapp.com/userCheck', data, { withCredentials: true })
       .then(res => {
         console.log(res.data)
         if (Object.keys(res.data).length === 0) {

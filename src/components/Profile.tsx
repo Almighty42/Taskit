@@ -35,7 +35,7 @@ const Profile = () => {
     // useEffect
     useEffect(() => {
         console.log("axios")
-        axios.post('http://localhost:4000/userGet', { userToken: localStorage.getItem('token') }, { withCredentials: true })
+        axios.post('https://taskit-dev.herokuapp.com/userGet', { userToken: localStorage.getItem('token') }, { withCredentials: true })
             .then(res => {
                 console.log(res.data)
                 setEmail(res.data.email)
@@ -60,7 +60,7 @@ const Profile = () => {
     const changeUser = async (option: any) => {
         if (option == 'username') {
             let data = { usernameVal, username, option, Id, userToken: localStorage.getItem('token') }
-            axios.post('http://localhost:4000/changeUserDetails', data, { withCredentials: true })
+            axios.post('https://taskit-dev.herokuapp.com/changeUserDetails', data, { withCredentials: true })
                 .then(res => {
                     if (res.data === false) {
                         setError2(true)
@@ -75,7 +75,7 @@ const Profile = () => {
                 setOpen2(false)
             } else {
                 let data = { emailVal, username, option, Id, userToken: localStorage.getItem('token') }
-                axios.post('http://localhost:4000/changeUserDetails', data, { withCredentials: true })
+                axios.post('https://taskit-dev.herokuapp.com/changeUserDetails', data, { withCredentials: true })
                     .then(res => {
                         if (res.data === false) {
                             setError(true)
@@ -89,7 +89,7 @@ const Profile = () => {
                 setError4(true)
             } else {
                 let data = { passwordVal, username, option, Id, userToken: localStorage.getItem('token') }
-                axios.post('http://localhost:4000/changeUserDetails', data, { withCredentials: true })
+                axios.post('https://taskit-dev.herokuapp.com/changeUserDetails', data, { withCredentials: true })
                     .then(res => {
                     })
             }
