@@ -13,7 +13,7 @@ import Todo from "./models/Todo.js";
 import path from 'path'
 import { config } from 'dotenv'
 
-config({ path: path.resolve('./URL.env') })
+config({ path: path.resolve('../URL.env') })
 
 await mongoose.connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -25,18 +25,25 @@ app.use(bodyParser.json({ extended: true }))
 app.use(cookieParser())
 app.use(cors({
   credentials: true,
-  origin: 'https://taskit-bf0af.web.app',
+  origin: 'http://localhost:3000',
 }))
 
 app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
+//TODO Vrati:
+//TODO cors:origin: https://taskit-bf0af.web.app
+//TODO Zameni http://localhost:4000 sa https://taskit-dev.herokuapp.com/
+//TODO Zameni "secret123" sa 
+
+
+
 app.post('/userCheck', (req, res) => {
   if (!req.body.id) {
     return res.json({});
   }
-  const payload = jwt.verify(req.body.id, process.env.JWT_TOKEN);
+  const payload = jwt.verify(req.body.id, "secret123");
   User.findById(payload.id)
     .then(userInfo => {
       if (!userInfo) {
@@ -51,7 +58,7 @@ app.post('/userGet', (req, res) => {
     return res.json({});
   }
 
-  const payload = jwt.verify(req.body.userToken, process.env.JWT_TOKEN);
+  const payload = jwt.verify(req.body.userToken, "secret123");
   User.findById(payload.id)
     .then(userInfo => {
       if (!userInfo) {
@@ -76,7 +83,7 @@ app.post('/register', (req, res) => {
               const hashPassword = bcrypt.hashSync(password, 10);
               const user = new User({ password: hashPassword, email: email, username: username, id: id });
               user.save().then((userInfo) => {
-                jwt.sign({ id: userInfo._id, email: userInfo.email, username: userInfo.username, id2: userInfo.id }, process.env.JWT_TOKEN, (err, token) => {
+                jwt.sign({ id: userInfo._id, email: userInfo.email, username: userInfo.username, id2: userInfo.id }, "secret123", (err, token) => {
                   if (err) {
                     console.log(err)
                     res.sendStatus(500);
@@ -105,7 +112,7 @@ app.post('/login', (req, res) => {
       }
       const passOk = bcrypt.compareSync(password, userInfo.password);
       if (passOk) {
-        jwt.sign({ id: userInfo._id, username }, process.env.JWT_TOKEN, (err, token) => {
+        jwt.sign({ id: userInfo._id, username }, "secret123", (err, token) => {
           if (err) {
             console.log(err);
             res.sendStatus(500);
@@ -120,7 +127,7 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/changeUserDetails', (req, res) => {
-  const payload = jwt.verify(req.body.userToken, process.env.JWT_TOKEN);
+  const payload = jwt.verify(req.body.userToken, "secret123");
   if (req.body.option == 'username') {
     User.findOne({ username: req.body.usernameVal })
       .then(userInfo => {
@@ -171,7 +178,7 @@ app.post('/logout', (req, res) => {
 });
 
 app.put('/todos', (req, res) => {
-  const payload = jwt.verify(req.body.userToken, process.env.JWT_TOKEN);
+  const payload = jwt.verify(req.body.userToken, "secret123");
   const todo = new Todo({
     title: req.body.title,
     disc: req.body.disc,
@@ -191,7 +198,7 @@ app.post('/todosGet', (req, res) => {
   if (req.body.userToken == '') {
     res.json(false)
   } else {
-    const payload = jwt.verify(req.body.userToken, process.env.JWT_TOKEN);
+    const payload = jwt.verify(req.body.userToken, "secret123");
     Todo.where({ user: new mongoose.Types.ObjectId(payload.id) })
       .find((err, todos) => {
         res.json(todos);
@@ -200,7 +207,7 @@ app.post('/todosGet', (req, res) => {
 });
 
 app.post('/todos', (req, res) => {
-  const payload = jwt.verify(req.body.userToken, process.env.JWT_TOKEN);
+  const payload = jwt.verify(req.body.userToken, "secret123");
   Todo.updateOne({
     _id: new mongoose.Types.ObjectId(req.body.id),
     user: new mongoose.Types.ObjectId(payload.id)
@@ -212,7 +219,7 @@ app.post('/todos', (req, res) => {
 });
 
 app.post('/todosDel', (req, res) => {
-  const payload = jwt.verify(req.body.userToken, process.env.JWT_TOKEN);
+  const payload = jwt.verify(req.body.userToken, "secret123");
   Todo.deleteOne({
     id: req.body.id,
     user: new mongoose.Types.ObjectId(payload.id)
@@ -222,7 +229,7 @@ app.post('/todosDel', (req, res) => {
 })
 
 app.post('/todosDisc', (req, res) => {
-  const payload = jwt.verify(req.body.userToken, process.env.JWT_TOKEN);
+  const payload = jwt.verify(req.body.userToken, "secret123");
   Todo.updateOne({
     id: req.body.id,
     user: new mongoose.Types.ObjectId(payload.id)
@@ -234,7 +241,7 @@ app.post('/todosDisc', (req, res) => {
 })
 
 app.post('/todosCheck', (req, res) => {
-  const payload = jwt.verify(req.body.userToken, process.env.JWT_TOKEN);
+  const payload = jwt.verify(req.body.userToken, "secret123");
   Todo.updateOne({
     id: req.body.id,
     user: new mongoose.Types.ObjectId(payload.id)

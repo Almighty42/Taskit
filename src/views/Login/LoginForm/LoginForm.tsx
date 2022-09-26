@@ -37,7 +37,7 @@ const LoginForm = () => {
     e.preventDefault()
 
     const data = { username, password };
-    axios.post('https://taskit-dev.herokuapp.com/login', data, { withCredentials: true })
+    axios.post('http://localhost:4000/login', data, { withCredentials: true })
       .then((res) => {
         if (!res.data == false) {
           localStorage.setItem('token', res.data.userToken)
@@ -46,7 +46,8 @@ const LoginForm = () => {
           setPassword('')
           setError(false)
           navigate('/')
-          axios.post('https://taskit-dev.herokuapp.com/todosGet', { userToken:localStorage.getItem('token') }, { withCredentials: true })
+          localStorage.setItem('user', 'true')
+          axios.post('http://localhost:4000/todosGet', { userToken:localStorage.getItem('token') }, { withCredentials: true })
             .then(res => {
               if (!res.data == false) {
                 user.setTasks(res.data);

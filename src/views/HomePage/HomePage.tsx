@@ -8,8 +8,6 @@ import './HomePage.scss'
 import Navbar from 'components/layout/Navbar/Navbar'
 import Sections from 'components/layout/Sections/Sections'
 import Tasks from 'components/layout/Tasks/Tasks'
-// Axios
-import axios from 'axios'
 
 const HomePage = () => {
   // useNavigate
@@ -17,14 +15,18 @@ const HomePage = () => {
 
   // useEffect
   useEffect(() => {
-    const data = { id:localStorage.getItem('token'), }
-    axios.post('https://taskit-dev.herokuapp.com/userCheck', data, { withCredentials: true })
+    if (localStorage.getItem('user') == 'false') {
+      navigate('/login')
+    }
+    // TODO Checking navigate('/login')
+    /* const data = { id:localStorage.getItem('token'), }
+    axios.post('http://localhost:4000/userCheck', data, { withCredentials: true })
       .then(res => {
         console.log(res.data)
         if (Object.keys(res.data).length === 0) {
           navigate('/login')
         }
-      })
+      }) */
   }, [])
   
   return (

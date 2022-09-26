@@ -52,7 +52,7 @@ const RegisterForm = () => {
       setconPassword('')
     } else {
       const data = { username, email, password, id:localStorage.getItem('token') };
-      axios.post('https://taskit-dev.herokuapp.com/register', data, { withCredentials: true })
+      axios.post('http://localhost:4000/register', data, { withCredentials: true })
         .then((res) => {
           console.log(res.data)
           if (res.data.status) {
@@ -63,7 +63,8 @@ const RegisterForm = () => {
             setEmail('')
             setPassword('')
             setconPassword('')
-            navigate("/")
+            navigate("/login")
+            localStorage.setItem('user', 'true')
           } else {
             if (res.data.val == 'username') {
               setError2(true)

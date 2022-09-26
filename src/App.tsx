@@ -20,19 +20,19 @@ function App() {
   const [openTask, setOpenTask] = useState(false)
   const [state, setState] = useState(false)
   const [tasks, setTasks] = useState([])
-  const [Id, setId] = useState(0)
-
+  const [Id, setId] = useState(localStorage.getItem('user'))
+  
   // useEffect
   useEffect(() => {
     console.log("axios")
     const data = { id:localStorage.getItem('token'), }
-    axios.post('https://taskit-dev.herokuapp.com/userCheck', data, { withCredentials: true })
+    axios.post('http://localhost:4000/userCheck', data, { withCredentials: true })
       .then(res => {
         setEmail(res.data.email)
         setUsername(res.data.username)
         setId(res.data.id2)
       })
-    axios.post('https://taskit-dev.herokuapp.com/todosGet', { userToken: localStorage.getItem('token') }, { withCredentials: true })
+    axios.post('http://localhost:4000/todosGet', { userToken: localStorage.getItem('token') }, { withCredentials: true })
       .then(res => {
         if (!res.data == false) {
           setTasks(res.data);
@@ -43,18 +43,19 @@ function App() {
   // Functions
   const logout = () => {
     localStorage.setItem('token', '')
-    axios.post('https://taskit-dev.herokuapp.com/logout', {}, { withCredentials: true })
+    axios.post('http://localhost:4000/logout', {}, { withCredentials: true })
       .then(() => {
         setEmail('')
         setUsername('')
         setTasks([])
+        localStorage.setItem('user', 'false')
       });
   }
   const deleteTask = (id: any) => {
     const data = { id: id, userToken: localStorage.getItem('token') }
-    axios.post('https://taskit-dev.herokuapp.com/todosDel', data, { withCredentials: true })
+    axios.post('http://localhost:4000/todosDel', data, { withCredentials: true })
       .then(res => {
-        axios.post('https://taskit-dev.herokuapp.com/todosGet', { userToken:localStorage.getItem('token') }, { withCredentials: true })
+        axios.post('http://localhost:4000/todosGet', { userToken:localStorage.getItem('token') }, { withCredentials: true })
           .then(res => {
             setTasks(res.data);
           })
@@ -84,7 +85,7 @@ function App() {
       }
     })
     const data = { id: id, disc: disc, userToken: localStorage.getItem('token') }
-    axios.post('https://taskit-dev.herokuapp.com/todosDisc', data, { withCredentials: true })
+    axios.post('http://localhost:4000/todosDisc', data, { withCredentials: true })
   }
   const changeCheck = (id: any, option: boolean) => {
     if (option) {
@@ -105,7 +106,7 @@ function App() {
       })
     }
     const data = { id: id, check: option, userToken: localStorage.getItem('token') }
-    axios.post('https://taskit-dev.herokuapp.com/todosCheck', data, { withCredentials: true })
+    axios.post('http://localhost:4000/todosCheck', data, { withCredentials: true })
   }
 
   return (
